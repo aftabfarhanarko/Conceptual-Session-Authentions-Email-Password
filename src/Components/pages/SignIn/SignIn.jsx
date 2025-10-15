@@ -1,6 +1,6 @@
 import React from "react";
 import "../../../index.css";
-import { Link, NavLink } from "react-router";
+import { Link } from "react-router";
 
 const SignIn = () => {
   return (
@@ -67,7 +67,7 @@ const SignIn = () => {
                 alt="Google"
                 className="w-5 h-5"
               />
-              Continue with Google
+              Sing In with Google
             </button>
 
             <p className="text-center text-white/80 mt-6 text-sm">
