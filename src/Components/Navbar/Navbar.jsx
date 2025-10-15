@@ -6,7 +6,7 @@ import './nav.css'
 const Navbar = () => {
   return (
    <div className="bg-white/80">
-    <div className="flex items-center justify-between max-w-[1300px] mx-auto  p-3 text-black">
+    <div className="flex flex-col gap-4 md:flex-row items-center justify-between max-w-[1300px] mx-auto  p-3 text-black">
    <div className="border-2 p-2 rounded-full bg-base-300  ">
      <img src={logo}></img>
    </div>
