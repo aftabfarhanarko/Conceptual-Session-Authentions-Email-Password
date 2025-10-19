@@ -1,46 +1,57 @@
-import {
-  createUserWithEmailAndPassword,
-  sendEmailVerification,
-  updateProfile,
-} from "firebase/auth";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router";
-import { auth } from "../../../firebase/firebase.config";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../../context/AuthContext";
 
 const SignUp = () => {
   const [show, setShow] = useState(false);
+  const { creatUserFun, updeatUserfun, enailVeryfyFun } =
+    useContext(AuthContext);
 
   const handelSubmite = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
-    const pass = e.target.password.value;
-    const namesa = e.target.name.value;
-    console.log("Find Data", { email, pass, namesa });
-
-    const testPassword =
-      /^(?=[a-z]*[A-Z][a-z]*[!@#$%^&*])[A-Za-z!@#$%^&*]{6,}$/;
-
-    if (!testPassword.test(pass)) {
-      toast.error(
-        "Password must be at least 6 characters and cannot contain spaces."
-      );
-      return;
-    }
+    const password = e.target.password.value;
+    const name = e.target.name.value;
+    const photo = e.target.photo.value;
+    console.log({ email, password, name, photo });
+    // console.log("Find Data", { email, pass, namesa });
+    // const testPassword =
+    //   /^(?=[a-z]*[A-Z][a-z]*[!@#$%^&*])[A-Za-z!@#$%^&*]{6,}$/;
+    // if (!testPassword.test(pass)) {
+    //   toast.error(
+    //     "Password must be at least 6 characters and cannot contain spaces."
+    //   );
+    //   return;
+    // }
 
     const ubdeat = {
-      displayName: namesa,
+      displayName: name,
+      photoURL: photo,
     };
-    createUserWithEmailAndPassword(auth, email, pass)
+    // Step-1 creat user
+    creatUserFun(email, password)
       .then((result) => {
-        console.log(result.user);
-        toast.success("Successfully Creat Account");
-        updateProfile(result.user, ubdeat);
-        sendEmailVerification(result.user).then(() => {
-          toast.apply("Please Veryfy Your Email");
-        });
+        console.log(result.user)
+
+        // Step-2 updeat user data
+        updeatUserfun(ubdeat)
+          .then(() => {
+
+            // Step-3 Email Veryfi user
+            enailVeryfyFun()
+              .then(() => {
+                toast.success("Successfully Creat Accoun.Please Verify Your Email" )
+              })
+              .catch((err) => {
+                console.log(err.message)
+              })
+          })
+          .catch((err) => {
+            toast.error(err.message)
+          });
       })
       .catch((e) => {
         if (e.code === "auth/email-already-in-use") {
@@ -97,7 +108,19 @@ const SignUp = () => {
                   type="text"
                   required
                   placeholder="Enter Your Full Name"
-                  className="w-full px-4 py-2 rounded-lg bg-white text-black   outline-none border border-white/30 focus:border-white/80"
+                  class="input input-bordered w-full bg-white/40 text-white placeholder-white/90 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                />
+              </div>
+              <div>
+                <label className="block text-white text-[14px] mb-1">
+                  Photo
+                </label>
+                <input
+                  name="photo"
+                  type="text"
+                  required
+                  placeholder="Photo Url"
+                  class="input input-bordered w-full bg-white/40 text-white placeholder-white/90 focus:outline-none focus:ring-2 focus:ring-pink-400"
                 />
               </div>
 
@@ -110,7 +133,7 @@ const SignUp = () => {
                   type="email"
                   required
                   placeholder="Email"
-                  className="w-full px-4 py-2 rounded-lg bg-white text-black   outline-none border border-white/30 focus:border-white/80"
+                  class="input input-bordered w-full bg-white/40 text-white placeholder-white/80 focus:outline-none focus:ring-2 focus:ring-pink-400"
                 />
               </div>
 
@@ -122,7 +145,7 @@ const SignUp = () => {
                   name="password"
                   type={show ? "text" : "password"}
                   placeholder="Password"
-                  className="w-full px-4 py-2 rounded-lg bg-white text-black  outline-none border border-white/30 focus:border-purple/80"
+                  class="input input-bordered w-full bg-white/40 text-white placeholder-white/80 focus:outline-none focus:ring-2 focus:ring-pink-400"
                 />
                 <div
                   onClick={() => setShow(!show)}

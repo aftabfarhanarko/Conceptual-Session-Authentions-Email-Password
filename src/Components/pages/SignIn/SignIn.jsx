@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import "../../../index.css";
 import { Link } from "react-router";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import {  GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
+import {
+  GoogleAuthProvider,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 import { auth } from "../../../firebase/firebase.config";
 import { toast } from "react-toastify";
 
@@ -22,7 +28,6 @@ const SignIn = () => {
         toast.success("Sign In User Succesfully");
         console.log(result.user);
         setCurrent(result.user);
-        
       })
       .catch((err) => {
         console.log(err.code);
@@ -35,36 +40,38 @@ const SignIn = () => {
   };
   const handelGoogleProvider = () => {
     signInWithPopup(auth, googleProvider)
-    .then(gogl => {
-      setCurrent(gogl.user);
-      toast.success("Google Account Loging Success");
-      console.log(gogl.user);
-    }).catch(error => {
-      toast.error("This Account Allrodey Loging");
-      console.log(error.message);
-    })
-  }
+      .then((gogl) => {
+        setCurrent(gogl.user);
+        toast.success("Google Account Loging Success");
+        console.log(gogl.user);
+      })
+      .catch((error) => {
+        toast.error("This Account Allrodey Loging");
+        console.log(error.message);
+      });
+  };
   const signOutsUser = () => {
     signOut(auth);
-    setCurrent(null)
+    setCurrent(null);
   };
 
-  const forgetPass =(e) => {
+  const forgetPass = (e) => {
     e.preventDefault();
-  const email = document.querySelector('input[name="email"]').value;
+    const email = document.querySelector('input[name="email"]').value;
 
-  if (!email) {
-    toast.error("Please enter your email first!");
-    return;
-  }
+    if (!email) {
+      toast.error("Please enter your email first!");
+      return;
+    }
     sendPasswordResetEmail(auth, email)
-    .then(res => {
-      toast.success("Your Password Rest Code Provied Now");
-    }).catch(er => {
-      console.log(er);
-      toast.error("Not Valid Code Provied This ");
-    })
-  }
+      .then(() => {
+        toast.success("Your Password Rest Code Provied Now");
+      })
+      .catch((er) => {
+        console.log(er);
+        toast.error("Not Valid Code Provied This ");
+      });
+  };
 
   return (
     <div className="hero bg-base-200 min-h-screen bg-gradient-to-br from-blue-500 via-blue-600 to-purple-500 ">
@@ -89,9 +96,13 @@ const SignIn = () => {
                 {current.displayName}
               </h1>
               <p className="text-center mt-2 text-md">{current.email}</p>
-              <button onClick={signOutsUser} type="submit" className="my-btn mt-5 w-4/6">
-                 Sign Out
-                </button>
+              <button
+                onClick={signOutsUser}
+                type="submit"
+                className="my-btn mt-5 w-4/6"
+              >
+                Sign Out
+              </button>
             </div>
           </div>
         ) : (
@@ -110,7 +121,7 @@ const SignIn = () => {
                     name="email"
                     type="email"
                     placeholder="Email"
-                    className="w-full px-4 py-2 rounded-lg bg-white text-black   outline-none border border-white/30 focus:border-white/80"
+                    class="input input-bordered w-full bg-white/40 text-white placeholder-white/80 focus:outline-none focus:ring-2 focus:ring-pink-400"
                   />
                 </div>
 
@@ -122,7 +133,7 @@ const SignIn = () => {
                     name="password"
                     type={show ? "text" : "password"}
                     placeholder="Password"
-                    className="w-full px-4 py-2 rounded-lg bg-white text-black  outline-none border border-white/30 focus:border-purple/80"
+                    class="input input-bordered w-full bg-white/40 text-white placeholder-white/80 focus:outline-none focus:ring-2 focus:ring-pink-400"
                   />
                   <div
                     onClick={() => setShow(!show)}
@@ -132,7 +143,10 @@ const SignIn = () => {
                   </div>
                 </div>
 
-                <div onClick={forgetPass} className="flex justify-left text-[12px] -mt-2">
+                <div
+                  onClick={forgetPass}
+                  className="flex justify-left text-[12px] -mt-2"
+                >
                   <a href="#" className="text-white/70 hover:text-white">
                     Forgot password?
                   </a>
@@ -149,13 +163,23 @@ const SignIn = () => {
                 <div className="border-t border-white/30 w-1/3"></div>
               </div>
 
-              <button onClick={handelGoogleProvider} className=" cursor-pointer mt-4 w-full bg-white text-gray-800 py-2 rounded-lg flex items-center justify-center gap-2 font-semibold hover:bg-gray-100 transition">
+              <button
+                onClick={handelGoogleProvider}
+                class="test-btn flex mt-2 items-center justify-center gap-3 bg-white text-gray-800 px-5 py-2 rounded-lg w-full font-medium text-xs hover:bg-gray-100 transition-colors cursor-pointer"
+              >
                 <img
                   src="https://www.svgrepo.com/show/475656/google-color.svg"
                   alt="Google"
-                  className="w-5 h-5"
+                  className="w-4 h-4"
                 />
                 Sing In with Google
+              </button>
+              <button
+                onClick={""}
+                class="test-btn flex mt-2 items-center justify-center gap-3 bg-white text-gray-800 px-5 py-2 rounded-lg w-full font-medium text-xs hover:bg-gray-100 transition-colors cursor-pointer"
+              >
+                <FaGithub className="w-4 h-4" />
+                Sing In with Github
               </button>
 
               <p className="text-center text-white/80 mt-6 text-sm">

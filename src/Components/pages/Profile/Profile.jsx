@@ -1,17 +1,19 @@
-import React from 'react';
+import React from "react";
 import { toast } from "react-toastify";
 
-
 const Profile = () => {
-     const handelTost = () => {
-        toast.success("🎉 You’ll be notified when the Profile page is ready Soon!", {
-          position: "top-center",
-          autoClose: 2000,
-          theme: "colored",
-        });
-      };
-    return (
-         <div className="px-2 min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-purple-400 via-purple-500 to-purple-400 text-center   ">
+  const handelTost = () => {
+    toast.success(
+      "🎉 You’ll be notified when the Profile page is ready Soon!",
+      {
+        position: "top-center",
+        autoClose: 2000,
+        theme: "colored",
+      }
+    );
+  };
+  return (
+    <div className="px-2 min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-purple-400 via-purple-500 to-purple-400 text-center   ">
       <h1 className="  text-3xl md:text-5xl font-semibold  md:font-bold text-white animate-bounce drop-shadow-lg ">
         🚀 Profile is Coming Soon
       </h1>
@@ -35,7 +37,7 @@ const Profile = () => {
         </p>
       </div>
     </div>
-    );
+  );
 };
 
 export default Profile;
