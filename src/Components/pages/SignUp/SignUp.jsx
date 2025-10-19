@@ -118,7 +118,6 @@ const SignUp = () => {
                 <input
                   name="photo"
                   type="text"
-                  required
                   placeholder="Photo Url"
                   class="input input-bordered w-full bg-white/40 text-white placeholder-white/90 focus:outline-none focus:ring-2 focus:ring-pink-400"
                 />

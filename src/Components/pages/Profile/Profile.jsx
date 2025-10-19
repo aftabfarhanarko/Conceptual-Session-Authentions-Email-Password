@@ -41,3 +41,27 @@ const Profile = () => {
 };
 
 export default Profile;
+
+/**
+ * {current ? (
+          <div className="mx-auto rounded-2xl w-full max-w-sm flex items-center justify-center bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-500 text-white ">
+            <div className="backdrop-blur-2xl  w-full max-w-sm border border-white/30 rounded-2xl shadow-2xl p-8 ">
+              <img
+                className="mx-auto w-[80px] h-[80px] rounded-full"
+                src={current.photoURL}
+              ></img>
+              <h1 className="text-xl mt-2 font-semibold text-center">
+                {current.displayName}
+              </h1>
+              <p className="text-center mt-2 text-md">{current.email}</p>
+              <button
+                onClick={signOutsUser}
+                type="submit"
+                className="my-btn mt-5 w-4/6"
+              >
+                Sign Out
+              </button>
+            </div>
+          </div>
+        ) : (
+ */
