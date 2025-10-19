@@ -4,12 +4,13 @@ import { Link } from "react-router";
 import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../context/AuthContext";
+import { Facebook } from "lucide-react";
 
 const SignIn = () => {
   const refernce = useRef(null);
   const [show, setShow] = useState(false);
 
-  const { signInUserFun, googleSignInFun, resetPasswordFun,githubSignInFuc } =
+  const { signInUserFun, googleSignInFun, resetPasswordFun, githubSignInFuc,myAccountSignIn } =
     useContext(AuthContext);
 
   const handelSingIn = (e) => {
@@ -45,18 +46,25 @@ const SignIn = () => {
   };
 
   const haldelGitHubSign = () => {
-     githubSignInFuc()
-     .then(result => {
-      console.log(result)
-     }).catch(err => {
-      console.log(err);
-     })
-  }
+    githubSignInFuc()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  // const signOutsUser = () => {
-  //   signOut(auth);
-  //   setCurrent(null);
-  // };
+  const handelfacbook = () => {
+    myAccountSignIn()
+    .then(result => {
+      console.log(result.user)
+    }).catch(err => {
+      console.log(err);
+    })
+  };
+
+  
 
   const forgetPass = () => {
     const myemail = refernce.current?.value;
@@ -165,6 +173,13 @@ const SignIn = () => {
             >
               <FaGithub className="w-4 h-4" />
               Sing In with Github
+            </button>
+            <button
+              onClick={handelfacbook}
+              class="test-btn flex mt-2 items-center justify-center gap-3 bg-white text-gray-800 px-5 py-2 rounded-lg w-full font-medium text-xs hover:bg-gray-100 transition-colors cursor-pointer"
+            >
+              <Facebook className="w-4 h-4" />
+              Sing In with Facbook
             </button>
 
             <p className="text-center text-white/80 mt-6 text-sm">
