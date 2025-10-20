@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../context/AuthContext";
 import { Facebook } from "lucide-react";
+import { FcGoogle } from "react-icons/fc";
 
 const SignIn = () => {
   const refernce = useRef(null);
@@ -63,8 +64,6 @@ const SignIn = () => {
       console.log(err);
     })
   };
-
-  
 
   const forgetPass = () => {
     const myemail = refernce.current?.value;
@@ -160,11 +159,8 @@ const SignIn = () => {
               onClick={handelGoogleProvider}
               class="test-btn flex mt-2 items-center justify-center gap-3 bg-white text-gray-800 px-5 py-2 rounded-lg w-full font-medium text-xs hover:bg-gray-100 transition-colors cursor-pointer"
             >
-              <img
-                src="https://www.svgrepo.com/show/475656/google-color.svg"
-                alt="Google"
-                className="w-4 h-4"
-              />
+             <FcGoogle />
+
               Sing In with Google
             </button>
             <button
